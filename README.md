@@ -72,8 +72,7 @@ Program açılınca kırmızı SCORPION banner'ı göreceksin. Menü şöyle:
 - Issue aç: Bug raporla veya yeni API ekle.
 - Lisans: MIT (Serbest kullanım, ama kredi ver).
 
-**Scorpion'un Zehriyle Vur!** 🦂💥  
-*Powered by xAI's Grok – Hızlı, Akıllı, Tehlikeli.*  
+**Scorpion'un Zehriyle Vur!** 🦂💥 
 
 ---
 
