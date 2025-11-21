@@ -16,6 +16,7 @@ Sadece **etik testler** ve **kendi cihazın** için kullan. Kötüye kullanım y
 ## 📱 Termux Kurulumu (Android'de 5 Dakika!)
 Termux'u Google Play'den indir ve aç. Sonra şu adımları izle:
 
+
 1. **Paketleri Güncelle** (Temel hazırlık):
    pkg update && pkg upgrade -y
    
@@ -32,6 +33,13 @@ cd scorpion-sms-bomber
 5. **Başlat ve Vur!** 🦂:
    python scorpion_sms.py
 - Banner çıkacak, menü görünecek. 1 (Normal), 2 (Turbo) veya 3 (Çıkış) seç.
+- İstersen Tek Komut:
+- pkg update && pkg upgrade -y
+pkg install python git -y
+git clone https://github.com/Scorpion292439/scorpion-sms-bomber.git
+cd scorpion-sms-bomber
+pip install requests colorama
+python scorpion_sms.py
 
 **İpucu**: İnternet bağlantın stabil olsun. İlk çalıştırmada izinleri ver (storage için `termux-setup-storage`).
 
