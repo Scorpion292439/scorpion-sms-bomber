@@ -249,7 +249,7 @@ def print_sms_banner():
 """
     print(banner)
 
-def sms_bomber_menu():
+def sms_bomber_menu(token_manager):
     servisler_sms = []
     for attribute in dir(SendSms):
         attribute_value = getattr(SendSms, attribute)
@@ -402,44 +402,44 @@ def sms_bomber_menu():
             break
 
 def main():
-    # Token kontrolü
+    # Token kontrolü en başta
     token_manager = TokenManager()
+    while token_manager.token is None:
+        if not token_manager.get_token_from_user():
+            continue
+        else:
+            break
    
     while True:
-        if token_manager.token is None:
-            if not token_manager.get_token_from_user():
+        system("clear")
+        print_main_banner()
+        try:
+            main_menu = input(f"{Fore.MAGENTA + Style.BRIGHT + Back.BLACK}╔═[ {Fore.WHITE}SCORPION MAIN MENU{Fore.MAGENTA} ]═╗{Style.RESET_ALL}\n"
+                              f"{Fore.CYAN + Style.BRIGHT}║{Fore.WHITE} 1. {Fore.GREEN}SMS Bomber{Fore.WHITE} ║{Style.RESET_ALL}\n"
+                              f"{Fore.CYAN}║{Fore.WHITE} 2. {Fore.YELLOW}Gelecek Araçlar... (Coming Soon){Fore.WHITE} ║{Style.RESET_ALL}\n"
+                              f"{Fore.CYAN}║{Fore.WHITE} 3. {Fore.RED}Çıkış / Exit{Fore.WHITE} ║{Style.RESET_ALL}\n"
+                              f"{Fore.MAGENTA + Style.BRIGHT}╚{'═' * 48}╝{Style.RESET_ALL}\n\n"
+                              f"{Fore.YELLOW + Style.BRIGHT}Seçimini Yap / Choose: {Fore.GREEN}")
+            if main_menu == "":
                 continue
-       
-        while True:
-            system("clear")
-            print_main_banner()
-            try:
-                main_menu = input(f"{Fore.MAGENTA + Style.BRIGHT + Back.BLACK}╔═[ {Fore.WHITE}SCORPION MAIN MENU{Fore.MAGENTA} ]═╗{Style.RESET_ALL}\n"
-                                  f"{Fore.CYAN + Style.BRIGHT}║{Fore.WHITE} 1. {Fore.GREEN}SMS Bomber{Fore.WHITE} ║{Style.RESET_ALL}\n"
-                                  f"{Fore.CYAN}║{Fore.WHITE} 2. {Fore.YELLOW}Gelecek Araçlar... (Coming Soon){Fore.WHITE} ║{Style.RESET_ALL}\n"
-                                  f"{Fore.CYAN}║{Fore.WHITE} 3. {Fore.RED}Çıkış / Exit{Fore.WHITE} ║{Style.RESET_ALL}\n"
-                                  f"{Fore.MAGENTA + Style.BRIGHT}╚{'═' * 48}╝{Style.RESET_ALL}\n\n"
-                                  f"{Fore.YELLOW + Style.BRIGHT}Seçimini Yap / Choose: {Fore.GREEN}")
-                if main_menu == "":
-                    continue
-                main_menu = int(main_menu)
-            except ValueError:
-                print(f"{Fore.RED + Style.BRIGHT}❌ Hatalı Giriş! Lütfen Sayı Giriniz. / Invalid Input! Please Enter a Number.{Style.RESET_ALL}")
-                sleep(3)
-                continue
-            
-            if main_menu == 1:
-                sms_bomber_menu()
-            elif main_menu == 2:
-                print(f"{Fore.YELLOW + Style.BRIGHT}⏳ Gelecek araçlar yakında eklenecek! / Coming soon!{Style.RESET_ALL}")
-                sleep(3)
-            elif main_menu == 3:
-                print(f"{Fore.RED + Style.BRIGHT}👋 Çıkış Yapılıyor... / Exiting...{Style.RESET_ALL}")
-                sleep(2)
-                sys.exit(0)
-            else:
-                print(f"{Fore.RED + Style.BRIGHT}❌ Geçersiz Seçim! / Invalid Choice!{Style.RESET_ALL}")
-                sleep(3)
+            main_menu = int(main_menu)
+        except ValueError:
+            print(f"{Fore.RED + Style.BRIGHT}❌ Hatalı Giriş! Lütfen Sayı Giriniz. / Invalid Input! Please Enter a Number.{Style.RESET_ALL}")
+            sleep(3)
+            continue
+        
+        if main_menu == 1:
+            sms_bomber_menu(token_manager)
+        elif main_menu == 2:
+            print(f"{Fore.YELLOW + Style.BRIGHT}⏳ Gelecek araçlar yakında eklenecek! / Coming soon!{Style.RESET_ALL}")
+            sleep(3)
+        elif main_menu == 3:
+            print(f"{Fore.RED + Style.BRIGHT}👋 Çıkış Yapılıyor... / Exiting...{Style.RESET_ALL}")
+            sleep(2)
+            sys.exit(0)
+        else:
+            print(f"{Fore.RED + Style.BRIGHT}❌ Geçersiz Seçim! / Invalid Choice!{Style.RESET_ALL}")
+            sleep(3)
 
 if __name__ == "__main__":
     main()
