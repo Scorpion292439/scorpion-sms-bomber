@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scorpion Tool - Giriş ve Hesap Oluştur</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #000000; /* Siyah arka plan */
+            color: #FFFFFF; /* Beyaz metin */
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        .login-container { 
+            background: #FF8C00; /* Turuncu form */
+            padding: 40px; 
+            border-radius: 10px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
+            width: 100%; 
+            max-width: 400px; 
+            text-align: center;
+        }
+        h1 { 
+            color: #000000; /* Siyah başlık */
+            margin-bottom: 20px; 
+            font-size: 24px; 
+        }
+        h2 { 
+            color: #000000; /* Siyah alt başlık */
+            margin-bottom: 30px; 
+        }
+        .form-group { margin-bottom: 20px; }
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
+            color: #000000; /* Siyah etiket */
+            font-weight: bold; 
+        }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #000000; /* Siyah kenar */
+            border-radius: 5px; 
+            font-size: 16px; 
+            background: #FFFFFF; /* Beyaz input */
+            color: #000000;
+        }
+        input:focus { 
+            outline: none; 
+            border-color: #000000; 
+        }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background: #000000; /* Siyah buton */
+            color: #FF8C00; /* Turuncu metin */
+            border: none; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            transition: background 0.3s; 
+            margin-bottom: 10px;
+        }
+        button:hover { 
+            background: #333333; /* Koyu gri hover */
+        }
+        button:disabled { 
+            opacity: 0.6; 
+            cursor: not-allowed; 
+        }
+        .toggle-link { 
+            color: #000000; 
+            margin-bottom: 20px; 
+        }
+        .toggle-link a { 
+            color: #000000; 
+            text-decoration: underline; 
+            cursor: pointer; 
+        }
+        .toggle-link a:hover { 
+            color: #FFFFFF; 
+        }
+        #message { 
+            margin-top: 15px; 
+            padding: 10px; 
+            border-radius: 5px; 
+            text-align: center; 
+            display: none; 
+            word-break: break-all; /* Token uzunluğu için */
+        }
+        .success { 
+            background: #000000; 
+            color: #FF8C00; 
+        }
+        .error { 
+            background: #FF8C00; 
+            color: #000000; 
+        }
+        .hidden { display: none; }
+        .loading { 
+            opacity: 0.7; 
+            pointer-events: none; 
+        }
+        .token-warning { 
+            font-size: 12px; 
+            color: #000000; 
+            font-weight: bold; 
+            margin-top: 5px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Scorpion Tool</h1>
+        
+        <!-- Giriş Formu (Varsayılan) -->
+        <form id="loginForm">
+            <h2>Giriş Yap</h2>
+            <div class="form-group">
+                <label for="email">E-posta Adresi</label>
+                <input type="email" id="email" required placeholder="ornek@gmail.com">
+            </div>
+            <div class="form-group">
+                <label for="password">Şifre</label>
+                <input type="password" id="password" required placeholder="Şifrenizi girin">
+            </div>
+            <button type="submit" id="loginBtn">Giriş Yap</button>
+            <div class="toggle-link">
+                Hesabın yok mu? <a onclick="toggleForm('register')">Hesap Oluştur</a>
+            </div>
+        </form>
+
+        <!-- Kayıt Formu (Gizli) -->
+        <form id="registerForm" class="hidden">
+            <h2>Yeni Hesap Oluştur</h2>
+            <div class="form-group">
+                <label for="regEmail">E-posta Adresi</label>
+                <input type="email" id="regEmail" required placeholder="ornek@gmail.com">
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Şifre</label>
+                <input type="password" id="regPassword" required placeholder="Güçlü bir şifre oluşturun (en az 6 karakter)">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Şifreyi Onayla</label>
+                <input type="password" id="confirmPassword" required placeholder="Şifreyi tekrar girin">
+            </div>
+            <button type="submit" id="registerBtn">Hesap Oluştur</button>
+            <div class="toggle-link">
+                Hesabın var mı? <a onclick="toggleForm('login')">Giriş Yap</a>
+            </div>
+        </form>
+
+        <div id="message"></div>
+    </div>
+
+    <!-- JS Dosyasını Yükle -->
+    <script src="script.js"></script>
+</body>
+</html>

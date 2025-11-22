@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scorpion Tool - Ana Sayfa</title>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #000000;
+            color: #FFFFFF;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #FF8C00;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        h1 { 
+            color: #000000;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        h2 {
+            color: #000000;
+            margin: 20px 0 10px 0;
+        }
+        .user-info {
+            background: #000000;
+            color: #FF8C00;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .info-item {
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+        .token-box {
+            background: #000000;
+            color: #FF8C00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 2px solid #FF8C00;
+            font-family: monospace;
+            font-size: 14px;
+            word-break: break-all;
+            line-height: 1.4;
+        }
+        .warning {
+            background: #000000;
+            color: #FF8C00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #FF0000;
+        }
+        .success {
+            background: #000000;
+            color: #00FF00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #00FF00;
+        }
+        .info {
+            background: #000000;
+            color: #FF8C00;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #FF8C00;
+        }
+        button {
+            padding: 12px 24px;
+            background: #000000;
+            color: #FF8C00;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #333333;
+        }
+        .logout-btn {
+            background: #FF0000;
+            color: #FFFFFF;
+        }
+        .logout-btn:hover {
+            background: #CC0000;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .token-length {
+            font-size: 12px;
+            color: #00FF00;
+            margin-top: 5px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Scorpion Tool</h1>
+            <button class="logout-btn" onclick="logout()">Çıkış Yap</button>
+        </div>
+
+        <div class="user-info">
+            <h2>Hesap Bilgileri</h2>
+            <div class="info-item"><strong>E-posta:</strong> <span id="userEmail">Yükleniyor...</span></div>
+            <div class="info-item"><strong>Kullanıcı ID:</strong> <span id="userId">Yükleniyor...</span></div>
+            <div class="info-item"><strong>Giriş Zamanı:</strong> <span id="loginTime">Yükleniyor...</span></div>
+        </div>
+
+        <h2>Termux Token'ınız</h2>
+        <div class="token-box" id="userToken">Yükleniyor...</div>
+        <div class="token-length" id="tokenLength">0/100 karakter</div>
+
+        <div class="success">
+            <strong>✅ BAŞARILI:</strong><br>
+            • Main sayfasına giriş yapıldı.<br>
+            • IP adresiniz güvenli şekilde kaydedildi.
+        </div>
+
+        <div class="info">
+            <strong>ℹ️ BİLGİ:</strong><br>
+            • Token'ınız 100 hanelidir ve her girişte aynı kalır.<br>
+            • Token değiştirme özelliği kaldırılmıştır.<br>
+            • Bu token Termux üzerinden tool'a giriş için gereklidir.
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ ÖNEMLİ UYARI:</strong><br>
+            • Bu token'ı KİMSEYLE paylaşmayınız!<br>
+            • Token'ınızı güvenli bir yerde saklayınız.<br>
+            • Token kaybı durumunda yeni bir hesap oluşturmanız gerekecektir.
+        </div>
+
+        <button onclick="copyToken()">Token'ı Kopyala</button>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
